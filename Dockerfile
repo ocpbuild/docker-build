@@ -1,10 +1,10 @@
 #
-# Build using source Docker
+# Test env setup container Dockerfile
 #
-FROM python:3
-COPY requirements.txt ./
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt && \
-    apt-get update && \
-    apt-get install -y vim
-COPY test_file_read_write_delete.py .
+FROM sys-z-test-docker-local.artifactory.swg-devops.com:ubuntu
+MAINTAINER Deepti Naphade "dnaphade@us.ibm.com"
+RUN apt-get update && apt-get -y install python3
+ADD python-app.py /pv-test/
+WORKDIR /pv-test
+CMD ["python3", "python-app.py"]
+
